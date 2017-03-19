@@ -36,6 +36,11 @@ if File.file?("testconfig")
   testing = true
 end
 
+if ENV["DROPBOX_OAUTH_BEARER"].nil?
+  puts "\nYou must have an environment variable of `DROPBOX_OAUTH_BEARER` in order to deploy to Dropbox\n\n"
+  exit(1)
+end
+
 if config["deploy"]["debug"]
   logger.level = Logger::DEBUG
   logger.debug("We are in debug mode")
