@@ -2,6 +2,7 @@
 require 'dropbox_api'
 require 'yaml'
 require 'logger'
+require 'find'
 
 logger = Logger.new(STDOUT)
 logger.level = Logger::WARN
@@ -13,10 +14,12 @@ def uploadFile(dropboxClient, file, dropboxPath)
 end
 
 def uploadDirectory(dropboxClient, directoryPath, dropboxPath)
-  Dir.foreach(directoryPath) do |item|
-  next if item == '.' or item == '..'
-    # do work on real items
-    uploadFile(dropboxClient, item, dropboxPath)
+  Find.find(directoryPath) do |file|
+    # TODO need to have the path of the parent as part of the dropbox path
+    # so that we keep the hierarchy we want
+    if !File.directory?(file)
+      uploadFile(dropboxClient, file, dropboxPath)
+    end
   end
 end
 # Validation
@@ -59,3 +62,4 @@ else
   artifactFile = File.open(artifactPath)
   uploadFile(dropboxClient, artifactFile, dropboxPath)
 end
+logger.debug("Uploading complete")

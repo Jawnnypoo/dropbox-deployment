@@ -1,6 +1,8 @@
 # upload-to-dropbox
 Deploy your CI artifacts to Dropbox
 
+[![Build Status](https://travis-ci.org/Jawnnypoo/upload-to-dropbox.svg?branch=master)](https://travis-ci.org/Jawnnypoo/upload-to-dropbox)
+
 ## Setup
 Relies on https://github.com/Jesus/dropbox_api
 

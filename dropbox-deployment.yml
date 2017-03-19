@@ -1,4 +1,4 @@
 deploy:
   dropbox_path: /Builds
-  artifacts_path: README.md
+  artifacts_path: artifacts
   debug: true
