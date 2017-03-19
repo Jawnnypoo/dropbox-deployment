@@ -1,5 +1,5 @@
 # upload-to-dropbox
-Ruby script to upload artifact(s) to Dropbox. Useful for CI purposes
+Deploy your CI artifacts to Dropbox
 
 ## Setup
 Relies on https://github.com/Jesus/dropbox_api
