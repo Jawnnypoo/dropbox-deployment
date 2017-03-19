@@ -1,5 +1,4 @@
 #!/usr/bin/env ruby
-
 require 'dropbox_api'
 require 'yaml'
 require 'logger'
