@@ -1,14 +1,20 @@
 # dropbox-deployment
 Deploy your CI artifacts to Dropbox
 
-[![Build Status](https://travis-ci.org/Jawnnypoo/upload-to-dropbox.svg?branch=master)](https://travis-ci.org/Jawnnypoo/upload-to-dropbox)
+[![Build Status](https://travis-ci.org/Jawnnypoo/dropbox-deployment.svg?branch=master)](https://travis-ci.org/Jawnnypoo/dropbox-deployment)
 
 ## Setup
 Install the gem:
 ```
 gem install dropbox-deployment
 ```
-
+This may vary in where this should go depending on your CI setup.
+If you are using Travis, it would look something like:
+```
+before_install:
+- rvm install 2.2.6
+- gem install dropbox-deployment
+```
 ## Usage
 Similar to the [dropbox_api](https://github.com/Jesus/dropbox_api), you need to have an environment variable called `DROPBOX_OAUTH_BEARER`
 
@@ -25,7 +31,13 @@ deploy:
 ```
 After creating this configuration, all you need to do is run:
 ```shell
-dropbox-deployment  
+dropbox-deployment
+```
+This place where this goes also can vary depending on the CI setup.
+If you are using Travis, you would want this as follows:
+```
+after_success:
+  - dropbox-deployment
 ```
 
 ## Limitations

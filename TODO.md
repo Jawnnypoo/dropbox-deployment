@@ -1,2 +1,2 @@
 - Make it where artifacts from a directory follow the directory structure
-- I don't think this works if there is already a file of the same name in your Dropbox. We will want to allow for overriding
+- I don't think this works if there is already a file of the same name in your Dropbox. We will want to allow for overriding the current file, replacing it with the new artifact
