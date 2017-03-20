@@ -27,6 +27,10 @@ module DropboxDeployment
 
     def deploy()
       # Validation
+      if !File.file?("upload-to-dropbox.yml")
+        puts "\nNo config file found. You need a file called `upload-to-dropbox.yml` with the configuration. See the README for details\n\n"
+        exit(1)
+      end
       config = YAML.load_file("upload-to-dropbox.yml")
       testing = false
       if !config["deploy"]
