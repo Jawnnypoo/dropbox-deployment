@@ -30,3 +30,8 @@ deploy:
 
 ## Limitations
 Since we rely on a certain function of the ruby Dropbox API client, we are limited to 150 MB files. See more [here](http://jesus.github.io/dropbox_api/DropboxApi/Client.html#upload-instance_method)
+
+## Thanks
+Thanks to the following for being a great reference on how to create a command line Ruby Gem:
+  - http://robdodson.me/how-to-write-a-command-line-ruby-gem/
+ 

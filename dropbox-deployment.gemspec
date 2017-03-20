@@ -1,4 +1,5 @@
 # coding: utf-8
+
 Gem::Specification.new do |spec|
   spec.name          = 'dropbox-deployment'
   spec.version       = '0.0.0'
@@ -10,6 +11,8 @@ Gem::Specification.new do |spec|
   spec.license       = "MIT"
 
   spec.files         = ["lib/dropbox-deployment.rb"]
+  spec.executables   = ["dropbox-deployment"]
+  spec.require_paths = ["lib"]
 
   spec.add_dependency "dropbox_api", "~> 0.1.5"
 end
