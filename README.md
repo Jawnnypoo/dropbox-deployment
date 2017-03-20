@@ -4,11 +4,7 @@ Deploy your CI artifacts to Dropbox
 [![Build Status](https://travis-ci.org/Jawnnypoo/upload-to-dropbox.svg?branch=master)](https://travis-ci.org/Jawnnypoo/upload-to-dropbox)
 
 ## Setup
-Add this line to your application's Gemfile:
-```
-gem 'dropbox-deployment'
-```
-or
+Install the gem:
 ```
 gem install dropbox-deployment
 ```
@@ -27,11 +23,16 @@ deploy:
   artifacts_path: artifacts # can be a single file, or a path
   debug: true # if you want to see more logs
 ```
+After creating this configuration, all you need to do is run:
+```shell
+dropbox-deployment  
+```
 
 ## Limitations
 Since we rely on a certain function of the ruby Dropbox API client, we are limited to 150 MB files. See more [here](http://jesus.github.io/dropbox_api/DropboxApi/Client.html#upload-instance_method)
 
+## Test Locally
+Just run `ruby test/test.rb`
 ## Thanks
 Thanks to the following for being a great reference on how to create a command line Ruby Gem:
   - http://robdodson.me/how-to-write-a-command-line-ruby-gem/
- 

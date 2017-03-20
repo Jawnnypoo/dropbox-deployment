@@ -6,8 +6,10 @@ require 'find'
 module DropboxDeployment
   class Deployer
 
-    logger = Logger.new(STDOUT)
-    logger.level = Logger::WARN
+    def initialize
+      @@logger = Logger.new(STDOUT)
+      @@logger.level = Logger::WARN
+    end
 
     def uploadFile(dropboxClient, file, dropboxPath)
       fileName = File.basename(file)
@@ -33,7 +35,7 @@ module DropboxDeployment
       end
       config = YAML.load_file("dropbox-deployment.yml")
       testing = false
-      if !config["deploy"]
+      if !config.has_key?("deploy")
       		puts "\nError in config file! Build file must contain a `deploy` object.\n\n"
       		exit(1)
       end
@@ -53,24 +55,24 @@ module DropboxDeployment
       end
 
       if config["deploy"]["debug"]
-        logger.level = Logger::DEBUG
-        logger.debug("We are in debug mode")
+        @@logger.level = Logger::DEBUG
+        @@logger.debug("We are in debug mode")
       end
 
       dropboxClient = DropboxApi::Client.new
 
       # Upload all files
-      logger.debug("Artifact Path: " + artifactPath)
-      logger.debug("Dropbox Path: " + dropboxPath)
+      @@logger.debug("Artifact Path: " + artifactPath)
+      @@logger.debug("Dropbox Path: " + dropboxPath)
       isDirectory = File.directory?(artifactPath)
-      logger.debug("Is directory: " + "#{isDirectory}")
+      @@logger.debug("Is directory: " + "#{isDirectory}")
       if isDirectory
         uploadDirectory(dropboxClient, artifactPath, dropboxPath)
       else
         artifactFile = File.open(artifactPath)
         uploadFile(dropboxClient, artifactFile, dropboxPath)
       end
-      logger.debug("Uploading complete")
+      @@logger.debug("Uploading complete")
     end
   end
 end
