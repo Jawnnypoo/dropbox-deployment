@@ -1,3 +1,4 @@
 testconfig
 artifacts/
 *.gem
+.env

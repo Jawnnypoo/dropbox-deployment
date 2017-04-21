@@ -2,6 +2,8 @@ require 'dropbox_api'
 require 'yaml'
 require 'logger'
 require 'find'
+require 'dotenv'
+Dotenv.load
 
 module DropboxDeployment
   class Deployer
@@ -14,7 +16,7 @@ module DropboxDeployment
     def uploadFile(dropboxClient, file, dropboxPath)
       fileName = File.basename(file)
       content = IO.read(file)
-      dropboxClient.upload dropboxPath + "/" + fileName, content
+      dropboxClient.upload dropboxPath + "/" + fileName, content, :mode => :overwrite
     end
 
     def uploadDirectory(dropboxClient, directoryPath, dropboxPath)
@@ -41,13 +43,6 @@ module DropboxDeployment
       end
       artifactPath = config["deploy"]["artifacts_path"]
       dropboxPath = config["deploy"]["dropbox_path"]
-
-      # Just for testing, load the local oauth token from the file
-      if File.file?("testconfig")
-        oauth = IO.read "testconfig"
-        ENV["DROPBOX_OAUTH_BEARER"] = oauth
-        testing = true
-      end
 
       if ENV["DROPBOX_OAUTH_BEARER"].nil?
         puts "\nYou must have an environment variable of `DROPBOX_OAUTH_BEARER` in order to deploy to Dropbox\n\n"
