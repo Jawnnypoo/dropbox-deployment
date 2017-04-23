@@ -2,7 +2,7 @@
 
 Gem::Specification.new do |spec|
   spec.name          = 'dropbox-deployment'
-  spec.version       = '0.0.4'
+  spec.version       = '1.0.0'
   spec.authors       = ["John Carlson"]
   spec.email         = ["jawnnypoo@gmail.com"]
 

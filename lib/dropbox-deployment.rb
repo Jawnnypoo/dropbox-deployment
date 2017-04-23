@@ -3,6 +3,7 @@ require 'yaml'
 require 'logger'
 require 'find'
 require 'dotenv'
+require 'pathname'
 Dotenv.load
 
 module DropboxDeployment
@@ -16,15 +17,23 @@ module DropboxDeployment
     def uploadFile(dropboxClient, file, dropboxPath)
       fileName = File.basename(file)
       content = IO.read(file)
+      @@logger.debug("Uploading " + fileName + " to " + dropboxPath + "/" + fileName)
       dropboxClient.upload dropboxPath + "/" + fileName, content, :mode => :overwrite
     end
 
     def uploadDirectory(dropboxClient, directoryPath, dropboxPath)
       Find.find(directoryPath) do |file|
-        # TODO need to have the path of the parent as part of the dropbox path
-        # so that we keep the hierarchy we want
+        
         if !File.directory?(file)
-          uploadFile(dropboxClient, file, dropboxPath)
+          currentFileDir = File.dirname(file)
+          if currentFileDir == directoryPath
+            modifedPath = dropboxPath
+          else 
+             # adjust for if we are a subdirectory within the desired saved build folder
+            modifedPath = dropboxPath + "/" + Pathname.new(currentFileDir).relative_path_from(Pathname.new(directoryPath)).to_s
+          end
+
+          uploadFile(dropboxClient, file, modifedPath)
         end
       end
     end

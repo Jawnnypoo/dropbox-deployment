@@ -1,1 +1,0 @@
-- Make it where artifacts from a directory follow the directory structure
