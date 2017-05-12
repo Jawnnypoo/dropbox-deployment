@@ -1,4 +1,4 @@
 source 'https://rubygems.org'
 
-gem 'dropbox_api'
 gem 'dotenv'
+gem 'dropbox_api'

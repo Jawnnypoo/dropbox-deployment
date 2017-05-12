@@ -3,8 +3,7 @@ require 'yaml'
 require 'logger'
 require 'find'
 require 'pathname'
-require 'dotenv'
-Dotenv.load
+require 'dotenv/load'
 
 module DropboxDeployment
   # Does the deployment to dropbox
