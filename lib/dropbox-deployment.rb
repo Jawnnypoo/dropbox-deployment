@@ -7,6 +7,7 @@ require 'dotenv/load'
 
 module DropboxDeployment
   # Does the deployment to dropbox
+  # noinspection RubyClassVariableUsageInspection
   class Deployer
 
     def initialize
@@ -38,7 +39,7 @@ module DropboxDeployment
       end
     end
 
-    def deploy()
+    def deploy
       # Validation
       unless File.file?('dropbox-deployment.yml')
         puts "\nNo config file found. You need a file called `dropbox-deployment.yml` with the configuration. See the README for details\n\n"
