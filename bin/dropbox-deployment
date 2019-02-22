@@ -1,6 +1,31 @@
 #!/usr/bin/env ruby
 
 require 'dropbox-deployment'
+require 'optparse'
+
+options = {}
+optparse = OptionParser.new do |opts|
+  options["debug"] = false
+
+  opts.on("-d", "--debug", "Turn on debugging") do |debug|
+    options["debug"] = true
+  end
+
+  opts.on("-u", "--upload-path DROPBOX_PATH", "The path to the folder on Dropbox") do |dropbox_path|
+    options["dropbox_path"] = dropbox_path
+  end
+
+  opts.on("-a", "--artifacts-path ARTIFACTS_PATH", "Local file or directory to upload to Dropbox") do |artifacts_path|
+    options["artifacts_path"] = artifacts_path
+  end
+
+  opts.on("-h", "--help", "Display this screen") do
+    puts opts
+    exit
+  end
+end
+
+optparse.parse!
 
 deployer = DropboxDeployment::Deployer.new
-deployer.deploy
+deployer.deploy(options)
