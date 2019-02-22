@@ -47,7 +47,6 @@ module DropboxDeployment
         exit(1)
       end
       config = YAML.load_file('dropbox-deployment.yml')
-      testing = false
       unless config.has_key?('deploy')
         puts "\nError in config file! Build file must contain a `deploy` object.\n\n"
         exit(1)
