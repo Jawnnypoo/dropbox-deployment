@@ -1,8 +1,8 @@
-# coding: utf-8
+# frozen_string_literal: true
 
 Gem::Specification.new do |spec|
   spec.name          = 'dropbox-deployment'
-  spec.version       = '1.0.0'
+  spec.version       = '1.1.0'
   spec.authors       = ['John Carlson']
   spec.email         = ['jawnnypoo@gmail.com']
 
@@ -15,8 +15,14 @@ Gem::Specification.new do |spec|
   spec.require_paths << 'lib'
   spec.executables   << 'dropbox-deployment'
 
-  spec.required_ruby_version = '>= 2.0.0'
+  spec.required_ruby_version = '>= 3.4'
 
-  spec.add_dependency 'dropbox_api', '~> 0.1.5'
-  spec.add_dependency 'dotenv', '~> 2.2', '>= 2.2.0'
+  spec.metadata = {
+    'source_code_uri' => 'https://github.com/Jawnnypoo/dropbox-deployment',
+    'bug_tracker_uri' => 'https://github.com/Jawnnypoo/dropbox-deployment/issues',
+    'rubygems_mfa_required' => 'true'
+  }
+
+  spec.add_dependency 'dotenv', '~> 3.2'
+  spec.add_dependency 'dropbox_api', '~> 0.1', '>= 0.1.21'
 end

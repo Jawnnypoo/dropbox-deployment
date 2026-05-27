@@ -1,7 +1,7 @@
 # dropbox-deployment
 Deploy your CI artifacts to Dropbox
 
-[![Build Status](https://travis-ci.org/Jawnnypoo/dropbox-deployment.svg?branch=master)](https://travis-ci.org/Jawnnypoo/dropbox-deployment)
+[![CI](https://github.com/Jawnnypoo/dropbox-deployment/actions/workflows/ci.yml/badge.svg)](https://github.com/Jawnnypoo/dropbox-deployment/actions/workflows/ci.yml)
 [![Gem](https://img.shields.io/gem/v/dropbox-deployment.svg)](https://rubygems.org/gems/dropbox-deployment)
 
 ## Setup
@@ -10,11 +10,18 @@ Install the gem:
 gem install dropbox-deployment
 ```
 This may vary in where this should go depending on your CI setup.
-If you are using Travis, it would look something like:
-```
-before_install:
-- rvm install 2.2.6
-- gem install dropbox-deployment
+If you are using GitHub Actions, it would look something like:
+```yml
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: ruby/setup-ruby@v1
+        with:
+          ruby-version: '4.0'
+      - name: Install dropbox-deployment
+        run: gem install dropbox-deployment
 ```
 ## Usage
 Similar to the [dropbox_api](https://github.com/Jesus/dropbox_api), you need to have an environment variable called `DROPBOX_OAUTH_BEARER`
@@ -35,11 +42,14 @@ After creating this configuration, all you need to do is run:
 dropbox-deployment
 ```
 This place where this goes also can vary depending on the CI setup.
-If you are using Travis, you would want this as follows:
+If you are using GitHub Actions, you would want this as a step that runs after your build, with the token wired in via secrets:
+```yml
+      - name: Deploy to Dropbox
+        env:
+          DROPBOX_OAUTH_BEARER: ${{ secrets.DROPBOX_OAUTH_BEARER }}
+        run: dropbox-deployment
 ```
-after_success:
-  - dropbox-deployment
-```
+Add `DROPBOX_OAUTH_BEARER` to your repository's secrets under **Settings → Secrets and variables → Actions**.
 
 ## Limitations
 Since we rely on a certain function of the Ruby Dropbox API client, we are limited to 150 MB per file size. See more [here](http://jesus.github.io/dropbox_api/DropboxApi/Client.html#upload-instance_method)
